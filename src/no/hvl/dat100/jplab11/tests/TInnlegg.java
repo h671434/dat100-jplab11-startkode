@@ -1,4 +1,4 @@
-package no.hvl.dat100.tests;
+package no.hvl.dat100.jplab11.tests;
 
 import no.hvl.dat100.jplab11.oppgave1.Innlegg;
 

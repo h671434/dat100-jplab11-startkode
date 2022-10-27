@@ -1,4 +1,4 @@
-package no.hvl.dat100.tests;
+package no.hvl.dat100.jplab11.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import no.hvl.dat100.jplab11.oppgave6.HtmlBlogg;
 
 class TestHtmlBlogg {
 
-	private static String MAPPE = System.getProperty("user.dir") + "/src/no/hvl/dat100/tests/";
+	private static String MAPPE = System.getProperty("user.dir") + "/src/no/hvl/dat100/jplab11/tests/";
 	private static String FILNAVN = "blogg.html";
 	
 	@Test
