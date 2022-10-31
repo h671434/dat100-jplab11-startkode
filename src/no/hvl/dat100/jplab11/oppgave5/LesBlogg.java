@@ -22,7 +22,52 @@ public class LesBlogg {
 
 	public static Blogg les(String mappe, String filnavn) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		Blogg samling = null;
+		Scanner leser = null;
+		
+		try {		
+			
+			File innfil = new File(mappe + filnavn);
+			leser = new Scanner(innfil);
+			
+			int antall = Integer.parseInt(leser.nextLine());
+			
+			samling = new Blogg (antall);
+					
+			for (int i = 0; i < antall; i++) {
+				Innlegg innlegg = null;
+				
+				String type = leser.nextLine();		
+				int id = Integer.parseInt(leser.nextLine());
+				String bruker = leser.nextLine();
+				String dato = leser.nextLine();
+				int likes = Integer.parseInt(leser.nextLine());
+				String tekst = leser.nextLine();
+				
+				if (type.equals(TEKST)) {
+					innlegg = new Tekst(id, bruker, dato, likes, tekst);	
+				}				
+				if	(type.equals(BILDE)) {
+					String url = leser.nextLine();
+					innlegg = new Bilde(id, bruker, dato, likes, tekst, url);
+				}
+				
+				if (!samling.ledigPlass()) {
+					samling.leggTil(innlegg);
+				} else {
+					samling.leggTilUtvid(innlegg);
+				}
+			}	
+			
+		} catch (FileNotFoundException e) {		
+			System.out.println("Finner ikke fil");
+		} catch (NumberFormatException e) {
+			System.out.println("Feil ved parsing til int");
+		}
+
+		leser.close();
+		
+		return samling;
 
 	}
 }
