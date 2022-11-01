@@ -5,28 +5,39 @@ import no.hvl.dat100.jplab11.oppgave1.*;
 
 public class Blogg {
 
-	// TODO: objektvariable 
+	Innlegg[] inleggtabell;
+	int nesteledig = 0;
 
 	public Blogg() {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		inleggtabell = new Innlegg[20];
+		nesteledig = 0;
 	}
 
 	public Blogg(int lengde) {
-		throw new UnsupportedOperationException(TODO.constructor("Blogg"));
+		inleggtabell = new Innlegg[lengde];
+		nesteledig = 0;
 	}
 
 	public int getAntall() {
-		throw new UnsupportedOperationException(TODO.method());
+		return this.nesteledig;
 	}
 	
 	public Innlegg[] getSamling() {
-		throw new UnsupportedOperationException(TODO.method());
+		return this.inleggtabell;
+	}
 
+	private void sortering(){
+		for(int i; i < nesteledig; i++){
+			
+		}
 	}
 	
 	public int finnInnlegg(Innlegg innlegg) {
 
-		throw new UnsupportedOperationException(TODO.method());
+		boolean found = false;
+		for(int i = 0; i < this.nesteledig && !found; i++){
+
+		}
 	}
 
 	public boolean finnes(Innlegg innlegg) {
