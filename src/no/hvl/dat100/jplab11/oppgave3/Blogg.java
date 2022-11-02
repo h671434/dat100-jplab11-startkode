@@ -2,6 +2,7 @@ package no.hvl.dat100.jplab11.oppgave3;
 
 import no.hvl.dat100.jplab11.common.TODO;
 import no.hvl.dat100.jplab11.oppgave1.*;
+import no.hvl.dat100.jplab11.oppgave2.*;
 
 import java.util.Arrays;
 
@@ -28,6 +29,7 @@ public class Blogg {
 		return this.inleggtabell;
 	}
 
+	//recursive quick sort algorithm to sort an array for our list
 	private void quickSort(Innlegg[] array, int lowIndex, int highIndex){
 		if (lowIndex >= highIndex){
 			return;
@@ -51,6 +53,7 @@ public class Blogg {
 		quickSort(array, leftPointer + 1, highIndex);
 	}
 
+	//help method for the quicksort
 	private void swap(Innlegg[] array, int index1, int index2){
 		Innlegg temp = array[index1];
 		array[index1] = array[index2];
@@ -58,10 +61,10 @@ public class Blogg {
 
 	}
 
-
+	//binary search for for id
 	public int finnInnlegg(Innlegg innlegg) {
 		if (nesteledig > 2) {
-			quickSort(this.inleggtabell, 0, nesteledig);
+			quickSort(this.inleggtabell, 0, nesteledig - 1);
 		}
 		int left = 0;
 		int right = nesteledig - 1;
@@ -99,31 +102,74 @@ public class Blogg {
 		nesteledig++;
 		return true;
 	}
-	
+
+	@Override
 	public String toString() {
-		throw new UnsupportedOperationException(TODO.method());
+		StringBuilder strMaker = new StringBuilder();
+		strMaker.append(nesteledig).append("\n");
+		for(int i = 0; i < nesteledig; i++){
+			strMaker.append(this.inleggtabell[i].toString());
+		}
+		return strMaker.toString();
 	}
 
 	// valgfrie oppgaver nedenfor
 	
 	public void utvid() {
-		throw new UnsupportedOperationException(TODO.method());
+		Innlegg[] nytabell = new Innlegg[inleggtabell.length*2];
+
+		for(int i = 0; i < nesteledig && i < inleggtabell.length; i++){
+			nytabell[i] = inleggtabell[i];
+		}
+		inleggtabell = nytabell;
+		quickSort(inleggtabell, 0, nesteledig-1);
 	}
 	
 	public boolean leggTilUtvid(Innlegg innlegg) {
+		if(finnes(innlegg)){
+			return false;
+		}
+		if(ledigPlass()){
+			inleggtabell[nesteledig] = innlegg;
+			return true;
+		}
+		else{
+			utvid();
+			inleggtabell[nesteledig] = innlegg;
+			return true;
+		}
 
-		throw new UnsupportedOperationException(TODO.method());
 		
 	}
 	
 	public boolean slett(Innlegg innlegg) {
-		
-		throw new UnsupportedOperationException(TODO.method());
+
+		int pos = finnInnlegg(innlegg);
+		if( pos == -1){
+			return false;
+		}
+		inleggtabell[pos] = inleggtabell[nesteledig-1];
+		inleggtabell[nesteledig - 1] = null;
+		nesteledig--;
+		return true;
+
 	}
 	
 	public int[] search(String keyword) {
-		
-		throw new UnsupportedOperationException(TODO.method());
+
+		int[] matches = new int[nesteledig];
+
+
+		for (int i = 0; i < nesteledig; i++) {
+
+			String tekst = ((Tekst) inleggtabell[i]).getTekst();
+
+			if (tekst.contains(keyword)) {
+				matches[i] = inleggtabell[i].getId();
+				}
+
+		}
+		return matches;
 
 	}
 }
