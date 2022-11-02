@@ -100,6 +100,7 @@ public class Blogg {
 		}
 		inleggtabell[nesteledig] = innlegg;
 		nesteledig++;
+		quickSort(inleggtabell, 0, nesteledig - 1);
 		return true;
 	}
 
@@ -122,24 +123,19 @@ public class Blogg {
 			nytabell[i] = inleggtabell[i];
 		}
 		inleggtabell = nytabell;
-		quickSort(inleggtabell, 0, nesteledig-1);
 	}
 	
 	public boolean leggTilUtvid(Innlegg innlegg) {
 		if(finnes(innlegg)){
 			return false;
 		}
-		if(ledigPlass()){
-			inleggtabell[nesteledig] = innlegg;
-			return true;
-		}
-		else{
+		if (!ledigPlass()) {
 			utvid();
-			inleggtabell[nesteledig] = innlegg;
-			return true;
 		}
+		leggTil(innlegg);
+		return true;
 
-		
+
 	}
 	
 	public boolean slett(Innlegg innlegg) {
@@ -151,6 +147,7 @@ public class Blogg {
 		inleggtabell[pos] = inleggtabell[nesteledig-1];
 		inleggtabell[nesteledig - 1] = null;
 		nesteledig--;
+		quickSort(inleggtabell,0,nesteledig - 1);
 		return true;
 
 	}
@@ -169,6 +166,8 @@ public class Blogg {
 				}
 
 		}
+		//TODO make a shorter array without a lot of empty spaces
+
 		return matches;
 
 	}
